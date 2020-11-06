@@ -1,0 +1,91 @@
+<template>
+  <section
+    role="dialog"
+    tabindex="-1"
+    aria-labelledby="modal-heading-01"
+    aria-modal="true"
+    aria-describedby="modal-content-id-1"
+    class={modalClass}
+  >
+    <div class="slds-modal__container">
+      <header class="slds-modal__header">
+        <button
+          class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+          title="Close"
+          onclick={hide}
+        >
+          <div style="background-color: red;">
+            <lightning-icon
+              icon-name="utility:close"
+              alternative-text="Close Modal"
+              variant="inverse"
+              size="small"
+            >
+            </lightning-icon>
+          </div>
+          <span class="slds-assistive-text">Close</span>
+        </button>
+
+        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+          Snippet list
+        </h2>
+      </header>
+      <div
+        class="slds-modal__content slds-var-p-around_medium"
+        id="modal-content-id-1"
+      >
+        <lightning-input
+          type="text"
+          name="searchSnippet"
+          data-id="searchbox"
+          label="Enter your snippet"
+          placeholder="Search your snippet"
+          onchange={handleSearchInputChange}
+          autocomplete="off"
+        ></lightning-input>
+
+        <lightning-datatable
+          key-field="id"
+          data={data}
+          columns={columns}
+          onrowselection={handleRowSelected}
+        >
+        </lightning-datatable>
+      </div>
+
+      <footer class="slds-modal__footer">
+        <lightning-layout horizontal-align="spread" multiple-rows>
+          <lightning-layout-item size="2">
+            <lightning-input
+              type="text"
+              label="tag"
+              variant="label-hidden"
+              placeholder="Tag"
+              value={snippetTag}
+              onchange={handleTagChange}
+            ></lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="8">
+            <lightning-input
+              type="text"
+              label="snippetMessage"
+              variant="label-hidden"
+              placeholder="Snippet Message"
+              value={snippetMessage}
+              onchange={handleMessageChange}
+            ></lightning-input>
+          </lightning-layout-item>
+
+          <lightning-layout-item size="2">
+            <lightning-button
+              variant="brand"
+              label="Add"
+              onclick={handleAddSnippet}
+            ></lightning-button>
+          </lightning-layout-item>
+        </lightning-layout>
+      </footer>
+    </div>
+  </section>
+  <div class={modalBackdropClass}></div>
+</template>

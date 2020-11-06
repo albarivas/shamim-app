@@ -1,0 +1,12 @@
+<template>
+  <lightning-card title="Input Text" style="width: 100%;">
+    <lightning-textarea
+      name="input1"
+      value={story}
+      label="Enter some text"
+      onchange={handleTextAreaChange}
+    ></lightning-textarea>
+
+    <c-modal onrowselected={handleRowSelected} onclose={handleClose}></c-modal>
+  </lightning-card>
+</template>
