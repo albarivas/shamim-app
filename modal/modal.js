@@ -9,7 +9,8 @@ export default class Modal extends LightningElement {
   columns = COLUMNS;
   data = [];
   isModalOpen;
-  justOpened;
+  rowAdded;
+  justAddedRow;
   snippetMessage = "";
   snippetTag = "";
 
@@ -49,10 +50,10 @@ export default class Modal extends LightningElement {
   }
 
   renderedCallback() {
-    if (this.justOpened) {
-      const inputBox = this.template.querySelector("[data-id='searchbox']");
-      inputBox.focus();
+    if (this.justOpened || this.justAddedRow) {
+      this.focusSearchBox();
       this.justOpened = false;
+      this.justAddedRow = false;
     }
   }
 
@@ -84,6 +85,7 @@ export default class Modal extends LightningElement {
     this.clearSelectedRows();
     this.snippetMessage = "";
     this.snippetTag = "";
+    this.justAddedRow = true;
   }
 
   handleRowSelected(event) {
@@ -111,6 +113,11 @@ export default class Modal extends LightningElement {
   fireCloseEvent() {
     const event = new CustomEvent("close");
     this.dispatchEvent(event);
+  }
+
+  focusSearchBox() {
+    const inputBox = this.template.querySelector("[data-id='searchbox']");
+    inputBox.focus();
   }
 
   refreshSearchSnippet() {
